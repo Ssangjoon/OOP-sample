@@ -1,0 +1,23 @@
+import java.util.HashSet;
+import java.util.Set;
+
+public class Lotto {
+    private final Set<LottoNum> lottoNumbers;
+    private int bonusNumber;
+    private static final int LENGTH = 6;
+
+    public Lotto(Set<LottoNum> lottoNumbers){
+        this.lottoNumbers = lottoNumbers;
+    }
+    public Lotto(){
+        lottoNumbers = new HashSet<>();
+        while (lottoNumbers.size() < LENGTH){
+            LottoNum lottoNum = new LottoNum();
+            lottoNumbers.add(lottoNum);
+        }
+    }
+
+    public Set<LottoNum> getLottoNumbers() {
+        return lottoNumbers;
+    }
+}
