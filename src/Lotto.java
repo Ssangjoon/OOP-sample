@@ -20,4 +20,8 @@ public class Lotto {
     public Set<LottoNum> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    public void setBonusNumber(int bonusNumber) {
+        this.bonusNumber = bonusNumber;
+    }
 }

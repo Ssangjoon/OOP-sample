@@ -22,5 +22,9 @@ public class Main {
         }
 
         Output.printChosenLotto(chooseLottos);
+
+        Lotto winningLotto= Input.receiveWinningNumber();
+
+
     }
 }

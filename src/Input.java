@@ -20,27 +20,57 @@ public class Input {
 
         while (lottoList.size() < numberOfManual){
             System.out.println("로또 번호 6개를 ,로 구분하여 입력해주세요.");
-            String line = sc.nextLine();
-            String[] chosenLottoArr = line.split(NUMBER_SPLIT_DELIMITER);
+            lottoList.add(receiveNumber());
+        }
+        return lottoList;
+    }
 
-            if(chosenLottoArr.length != 6) {
+    public static Lotto receiveWinningNumber(){
+        System.out.println("당첨 로또번호를 입력하세요");
+        Lotto winningLotto = receiveNumber();
+
+        while(true){
+            System.out.println("보너스 번호를 입력해주세요");
+            int bonusNumber = Integer.parseInt(sc.nextLine());
+
+            boolean isDuplicate = winningLotto.getLottoNumbers().stream().anyMatch(lottoNum ->  lottoNum.getNum() == bonusNumber);
+            if(isDuplicate){
+                System.out.println("보너스 번호는 기존 로또 당첨번호와 중복될 수 없습니다.");
+                continue;
+            }
+            winningLotto.setBonusNumber(bonusNumber);
+            break;
+        }
+        return winningLotto;
+    }
+
+    private static Lotto receiveNumber(){
+        while (true){
+            String line = sc.nextLine();
+            String[] receivedNumberArr= line.split(NUMBER_SPLIT_DELIMITER);
+
+            if(receivedNumberArr.length != 6){
                 System.out.println("6개의 숫자를 입력하세요");
                 continue;
             }
 
             Set<LottoNum> chosenLotto = new HashSet<>();
-            for(String chosenLottoStr : chosenLottoArr) {
-                int num = Integer.parseInt(chosenLottoStr);
-                chosenLotto.add(new LottoNum(num));
+            try{
+                for(String chosenNumber : receivedNumberArr) {
+                    int num = Integer.parseInt(chosenNumber);
+                    chosenLotto.add(new LottoNum(num));
+                }
+            } catch(NumberFormatException e){
+                System.out.println("입력값을 확인해주세요");
+                continue;
             }
 
             if (chosenLotto.size() != 6){
                 System.out.println("로또 번호는 중복되지 않아야 합니다.");
                 continue;
             }
-            lottoList.add(new Lotto(chosenLotto));
-        }
-        return lottoList;
-    }
 
+            return new Lotto(chosenLotto);
+        }
+    }
 }
