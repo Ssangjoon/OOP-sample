@@ -9,22 +9,24 @@ public class Main {
         int numberOfGames = Input.receiveAmount();
         int numberOfManual = Input.chooseMode(numberOfGames);
 
-        List<Lotto> chooseLottos =  new ArrayList<>();
+        List<Lotto> chosenLottos =  new ArrayList<>();
         if (numberOfManual > 0){
-            chooseLottos = Input.chooseLotto(numberOfManual);
+            chosenLottos = Input.chooseLotto(numberOfManual);
         }
 
         int numberOfAuto = numberOfGames - numberOfManual;
 
         for(int i = 0; i < numberOfAuto; i++){
             Lotto lotto = new Lotto();
-            chooseLottos.add(lotto);
+            chosenLottos.add(lotto);
         }
 
-        Output.printChosenLotto(chooseLottos);
+        Output.printChosenLotto(chosenLottos);
 
         Lotto winningLotto= Input.receiveWinningNumber();
 
+        List<LottoResult> lottoResults= LottoResult.calculateRank(chosenLottos, winningLotto);
 
+        Output.printLottoResult(lottoResults);
     }
 }

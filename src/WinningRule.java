@@ -15,4 +15,25 @@ public enum WinningRule {
         this.matchBonus = matchBonus;
         this.price = prize;
     }
+
+    public static WinningRule of(int matchCount, boolean matchBonus) {
+        for (WinningRule rule : values()) {
+            if (rule.matchCount == matchCount && rule.matchBonus == matchBonus) {
+                return rule;
+            }
+        }
+        return NONE;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public boolean isMatchBonus() {
+        return matchBonus;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }
