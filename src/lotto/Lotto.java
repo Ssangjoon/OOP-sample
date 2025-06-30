@@ -1,10 +1,12 @@
+package lotto;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Lotto {
     private final Set<LottoNum> lottoNumbers;
     private int bonusNumber;
-    private static final int LENGTH = 6;
+    public static final int LENGTH = 6;
 
     public Lotto(Set<LottoNum> lottoNumbers){
         this.lottoNumbers = lottoNumbers;

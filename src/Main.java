@@ -1,3 +1,7 @@
+import lotto.Lotto;
+import lotto.LottoResult;
+import lotto.WinningRule;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

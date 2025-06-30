@@ -1,4 +1,7 @@
-import java.util.EnumMap;
+import lotto.Lotto;
+import lotto.LottoNum;
+import lotto.WinningRule;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

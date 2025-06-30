@@ -1,3 +1,5 @@
+package lotto;
+
 public enum WinningRule {
     FIRST(6, false, 2000000000),
     SECOND(5, true, 30000000),

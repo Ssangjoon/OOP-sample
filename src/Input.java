@@ -1,4 +1,8 @@
+import lotto.Lotto;
+import lotto.LottoNum;
+
 import java.util.*;
+import static lotto.Lotto.LENGTH;
 
 public class Input {
     private static final Scanner sc = new Scanner(System.in);
@@ -55,7 +59,7 @@ public class Input {
             String line = sc.nextLine();
             String[] receivedNumberArr= line.split(NUMBER_SPLIT_DELIMITER);
 
-            if(receivedNumberArr.length != 6){
+            if(receivedNumberArr.length != LENGTH){
                 System.out.println("6개의 숫자를 입력하세요");
                 continue;
             }
@@ -71,7 +75,7 @@ public class Input {
                 continue;
             }
 
-            if (chosenLotto.size() != 6){
+            if (chosenLotto.size() != LENGTH){
                 System.out.println("로또 번호는 중복되지 않아야 합니다.");
                 continue;
             }

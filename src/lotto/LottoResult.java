@@ -1,3 +1,5 @@
+package lotto;
+
 import java.util.*;
 
 public class LottoResult {
@@ -36,7 +38,7 @@ public class LottoResult {
         Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
 
         // 1. 초기화 - 0 세팅
-        for (WinningRule rule :WinningRule.values()) {
+        for (WinningRule rule : WinningRule.values()) {
             resultCount.put(rule, 0);
         }
 
