@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LottoResult {
     private final int matchCount;
@@ -15,7 +13,9 @@ public class LottoResult {
 
     public static List<LottoResult> calculateRank(List<Lotto> chosenLottos, Lotto winningLotto){
         List<LottoResult> results = new ArrayList<>();
+
         Set<LottoNum> winningLottoNumbers = winningLotto.getLottoNumbers();
+
         for (Lotto lotto : chosenLottos) {
             Set<LottoNum> chosenLottoNumbers = lotto.getLottoNumbers();
             int matchCount = (int) chosenLottoNumbers.stream()
@@ -30,6 +30,29 @@ public class LottoResult {
             results.add(new LottoResult(matchCount, matchBonus, winningRule));
         }
         return results;
+    }
+
+    public static Map<WinningRule, Integer> getResultFormat(List<LottoResult> results){
+        Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
+
+        // 1. 초기화 - 0 세팅
+        for (WinningRule rule :WinningRule.values()) {
+            resultCount.put(rule, 0);
+        }
+
+        for (LottoResult lottoResult : results) {
+            WinningRule rule = lottoResult.getWinningRules();
+            resultCount.put(rule, resultCount.get(rule) + 1);
+        }
+
+        return resultCount;
+    }
+
+    public static double getTotalYieldRate(Map<WinningRule, Integer> resultFormat, int amount) {
+        double totalPrice = (double) resultFormat.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+        return totalPrice / amount;
     }
 
     public int getMatchCount() {

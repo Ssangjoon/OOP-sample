@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         run();
     }
     private static void run() {
-        int numberOfGames = Input.receiveAmount();
+        int amount = Input.receiveAmount();
+        int numberOfGames = amount/1000;
         int numberOfManual = Input.chooseMode(numberOfGames);
 
         List<Lotto> chosenLottos =  new ArrayList<>();
@@ -26,7 +28,9 @@ public class Main {
         Lotto winningLotto= Input.receiveWinningNumber();
 
         List<LottoResult> lottoResults= LottoResult.calculateRank(chosenLottos, winningLotto);
+        Map<WinningRule, Integer> resultFormat = LottoResult.getResultFormat(lottoResults);
 
-        Output.printLottoResult(lottoResults);
+        double yieldRate= LottoResult.getTotalYieldRate(resultFormat, amount);
+        Output.printLottoResult(resultFormat, yieldRate);
     }
 }

@@ -6,8 +6,7 @@ public class Input {
 
     public static int receiveAmount() {
         System.out.println("로또 구매를 위해 금액을 입력해주세요.");
-        int amount = Integer.parseInt(sc.nextLine());
-        return amount/1000;
+        return Integer.parseInt(sc.nextLine());
     }
 
     public static int chooseMode(int numberOfGames){

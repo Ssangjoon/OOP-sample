@@ -13,20 +13,7 @@ public class Output {
             System.out.println(numbers);
         }
     }
-    public static void printLottoResult(List<LottoResult> lottoResults){
-        Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
-
-        // 1. 초기화 - 0 세팅
-        for (WinningRule rule :WinningRule.values()) {
-            resultCount.put(rule, 0);
-        }
-
-        // 2.
-        for (LottoResult lottoResult : lottoResults) {
-            WinningRule rule = lottoResult.getWinningRules();
-            resultCount.put(rule, resultCount.get(rule) + 1);
-        }
-
+    public static void printLottoResult(Map<WinningRule, Integer> resultFormat, double yieldRate){
         for(WinningRule rule :WinningRule.values()){
             String bonusText = rule.isMatchBonus() ? ", 보너스 볼 일치" : "";
             System.out.printf(
@@ -34,8 +21,9 @@ public class Output {
                 rule.getMatchCount(),
                 bonusText,
                 rule.getPrice(),
-                resultCount.get(rule)
+                resultFormat.get(rule)
             );
         }
+        System.out.printf("수익률: %d%%\n", (int)(yieldRate * 100));
     }
 }
