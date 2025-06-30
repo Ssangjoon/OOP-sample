@@ -2,9 +2,9 @@ package lotto;
 
 import java.util.*;
 
-public class LottoResultService {
-    public static List<LottoResult> calculateRank(List<Lotto> chosenLottos, Lotto winningLotto){
-        List<LottoResult> results = new ArrayList<>();
+public class LottoService {
+    public static List<WinningRule> calculateRank(List<Lotto> chosenLottos, Lotto winningLotto){
+        List<WinningRule> results = new ArrayList<>();
 
         Set<LottoNum> winningLottoNumbers = winningLotto.getLottoNumbers();
 
@@ -19,12 +19,12 @@ public class LottoResultService {
 
             WinningRule winningRule= WinningRule.of(matchCount, matchBonus);
 
-            results.add(new LottoResult(matchCount, matchBonus, winningRule));
+            results.add(winningRule);
         }
         return results;
     }
 
-    public static Map<WinningRule, Integer> getResultFormat(List<LottoResult> results){
+    public static Map<WinningRule, Integer> getResultFormat(List<WinningRule> results){
         Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
 
         // 1. 초기화 - 0 세팅
@@ -32,8 +32,7 @@ public class LottoResultService {
             resultCount.put(rule, 0);
         }
 
-        for (LottoResult lottoResult : results) {
-            WinningRule rule = lottoResult.getWinningRules();
+        for (WinningRule rule : results) {
             resultCount.put(rule, resultCount.get(rule) + 1);
         }
 
