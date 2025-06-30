@@ -1,9 +1,9 @@
 import lotto.Lotto;
 import lotto.LottoNum;
+import lotto.LottoResult;
 import lotto.WinningRule;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoOutput {
@@ -16,7 +16,7 @@ public class LottoOutput {
             System.out.println(numbers);
         }
     }
-    public static void printLottoResult(Map<WinningRule, Integer> resultFormat, double yieldRate){
+    public static void printLottoResult(LottoResult result, double yieldRate){
         for(WinningRule rule :WinningRule.values()){
             String bonusText = rule.isMatchBonus() ? ", 보너스 볼 일치" : "";
             System.out.printf(
@@ -24,7 +24,7 @@ public class LottoOutput {
                 rule.getMatchCount(),
                 bonusText,
                 rule.getPrice(),
-                resultFormat.get(rule)
+                result.getCountByLottoRank().get(rule)
             );
         }
         System.out.printf("수익률: %d%%\n", (int)(yieldRate * 100));

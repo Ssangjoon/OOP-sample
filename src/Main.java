@@ -1,10 +1,10 @@
 import lotto.Lotto;
+import lotto.LottoResult;
 import lotto.LottoService;
 import lotto.WinningRule;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import static lotto.Lotto.PRICE;
 
 public class Main {
@@ -33,9 +33,9 @@ public class Main {
         Lotto winningLotto= LottoInput.receiveWinningNumber();
 
         List<WinningRule> lottoResults= LottoService.calculateRank(chosenLottos, winningLotto);
-        Map<WinningRule, Integer> resultFormat = LottoService.getResultFormat(lottoResults);
-        double yieldRate= LottoService.getTotalYieldRate(resultFormat, amount);
+        LottoResult result = LottoService.getResult(lottoResults);
+        double yieldRate= LottoService.getTotalYieldRate(result, amount);
 
-        LottoOutput.printLottoResult(resultFormat, yieldRate);
+        LottoOutput.printLottoResult(result, yieldRate);
     }
 }

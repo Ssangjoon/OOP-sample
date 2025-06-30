@@ -24,7 +24,7 @@ public class LottoService {
         return results;
     }
 
-    public static Map<WinningRule, Integer> getResultFormat(List<WinningRule> results){
+    public static LottoResult getResult(List<WinningRule> results){
         Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
 
         // 1. 초기화 - 0 세팅
@@ -36,11 +36,11 @@ public class LottoService {
             resultCount.put(rule, resultCount.get(rule) + 1);
         }
 
-        return resultCount;
+        return new LottoResult(resultCount);
     }
 
-    public static double getTotalYieldRate(Map<WinningRule, Integer> resultFormat, int amount) {
-        double totalPrice = (double) resultFormat.entrySet().stream()
+    public static double getTotalYieldRate(LottoResult result, int amount) {
+        double totalPrice = (double) result.getCountByLottoRank().entrySet().stream()
                 .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
         return totalPrice / amount;
