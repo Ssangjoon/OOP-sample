@@ -67,7 +67,7 @@ public class Input {
                     int num = Integer.parseInt(chosenNumber);
                     chosenLotto.add(new LottoNum(num));
                 }
-            } catch(NumberFormatException e){
+            } catch(IllegalArgumentException e){
                 System.out.println("입력값을 확인해주세요");
                 continue;
             }

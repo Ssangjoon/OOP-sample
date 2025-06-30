@@ -12,6 +12,9 @@ public class LottoNum {
         this.num = random.nextInt(MAX_NUMBER);
     }
     public LottoNum(int num){
+        if (num < MIN_NUMBER || num > MAX_NUMBER) {
+            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
+        }
         this.num = num;
     }
 
