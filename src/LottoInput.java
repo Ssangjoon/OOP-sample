@@ -4,7 +4,7 @@ import lotto.LottoNum;
 import java.util.*;
 import static lotto.Lotto.LENGTH;
 
-public class Input {
+public class LottoInput {
     private static final Scanner sc = new Scanner(System.in);
     private static final String NUMBER_SPLIT_DELIMITER = ",";
 

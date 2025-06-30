@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Output {
+public class LottoOutput {
     public static void printChosenLotto(List<Lotto> lottoList){
         for (Lotto lotto : lottoList) {
             List<Integer> numbers = lotto.getLottoNumbers().stream()

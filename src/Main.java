@@ -5,19 +5,20 @@ import lotto.WinningRule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import static lotto.Lotto.PRICE;
 
 public class Main {
     public static void main(String[] args) {
         run();
     }
     private static void run() {
-        int amount = Input.receiveAmount();
-        int numberOfGames = amount/1000;
-        int numberOfManual = Input.chooseMode(numberOfGames);
+        int amount = LottoInput.receiveAmount();
+        int numberOfGames = amount/PRICE;
+        int numberOfManual = LottoInput.chooseMode(numberOfGames);
 
         List<Lotto> chosenLottos =  new ArrayList<>();
         if (numberOfManual > 0){
-            chosenLottos = Input.chooseLotto(numberOfManual);
+            chosenLottos = LottoInput.chooseLotto(numberOfManual);
         }
 
         int numberOfAuto = numberOfGames - numberOfManual;
@@ -27,14 +28,14 @@ public class Main {
             chosenLottos.add(lotto);
         }
 
-        Output.printChosenLotto(chosenLottos);
+        LottoOutput.printChosenLotto(chosenLottos);
 
-        Lotto winningLotto= Input.receiveWinningNumber();
+        Lotto winningLotto= LottoInput.receiveWinningNumber();
 
         List<LottoResult> lottoResults= LottoResult.calculateRank(chosenLottos, winningLotto);
         Map<WinningRule, Integer> resultFormat = LottoResult.getResultFormat(lottoResults);
 
         double yieldRate= LottoResult.getTotalYieldRate(resultFormat, amount);
-        Output.printLottoResult(resultFormat, yieldRate);
+        LottoOutput.printLottoResult(resultFormat, yieldRate);
     }
 }
