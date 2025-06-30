@@ -33,7 +33,7 @@ public class Main {
         Lotto winningLotto= LottoInput.receiveWinningNumber();
 
         List<WinningRule> lottoResults= LottoService.calculateRank(chosenLottos, winningLotto);
-        LottoResult result = LottoService.getResult(lottoResults);
+        LottoResult result = new LottoResult(lottoResults);
         double yieldRate= LottoService.getTotalYieldRate(result, amount);
 
         LottoOutput.printLottoResult(result, yieldRate);

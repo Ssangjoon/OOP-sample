@@ -11,7 +11,7 @@ public class LottoService {
         for (Lotto lotto : chosenLottos) {
             Set<LottoNum> chosenLottoNumbers = lotto.getLottoNumbers();
             int matchCount = (int) chosenLottoNumbers.stream()
-                    .filter(num -> winningLottoNumbers.contains(num))
+                    .filter(winningLottoNumbers::contains)
                     .count();
 
             boolean matchBonus = chosenLottoNumbers.stream()
@@ -24,23 +24,9 @@ public class LottoService {
         return results;
     }
 
-    public static LottoResult getResult(List<WinningRule> results){
-        Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
-
-        // 1. 초기화 - 0 세팅
-        for (WinningRule rule : WinningRule.values()) {
-            resultCount.put(rule, 0);
-        }
-
-        for (WinningRule rule : results) {
-            resultCount.put(rule, resultCount.get(rule) + 1);
-        }
-
-        return new LottoResult(resultCount);
-    }
 
     public static double getTotalYieldRate(LottoResult result, int amount) {
-        double totalPrice = (double) result.getCountByLottoRank().entrySet().stream()
+        double totalPrice = result.getCountByLottoRank().entrySet().stream()
                 .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
         return totalPrice / amount;
