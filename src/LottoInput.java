@@ -2,6 +2,8 @@ import lotto.Lotto;
 import lotto.LottoNum;
 
 import java.util.*;
+import java.util.function.Predicate;
+
 import static lotto.Lotto.LENGTH;
 
 public class LottoInput {
@@ -10,26 +12,19 @@ public class LottoInput {
 
     public static int receiveAmount() {
         System.out.println("로또 구매를 위해 금액을 입력해주세요.");
-        return Integer.parseInt(sc.nextLine());
+        return receiveNumber(amount -> amount > 0 && amount % 1000 == 0, "1000원 단위의 양수만 입력해주세요.");
     }
 
     public static int chooseMode(int numberOfGames){
         System.out.println("수동으로 진행할 게임 숫자를 입력해주세요. 총 게임 수 : " + numberOfGames);
-        while (true){
-            int numberOfManual= Integer.parseInt(sc.nextLine());
-            if(numberOfManual > numberOfGames){
-                System.out.println("선택하신 수동게임 개수가 총 게임수보다 많습니다.\n 다시 입력해주세요");
-                continue;
-            }
-            return numberOfManual;
-        }
+        return receiveNumber(manual -> manual >= 0 && manual <= numberOfGames, "수동 게임 수는 0 이상이며 총 게임 수를 초과할 수 없습니다.");
     }
 
     public static List<Lotto> chooseLotto(int numberOfManual){
         List<Lotto> lottoList = new ArrayList<>();
 
         while (lottoList.size() < numberOfManual){
-            System.out.println("로또 번호 6개를 ,로 구분하여 입력해주세요.");
+            System.out.println("로또 번호" + LENGTH + "개를 ,로 구분하여 입력해주세요.");
             lottoList.add(receiveNumber());
         }
         return lottoList;
@@ -60,7 +55,7 @@ public class LottoInput {
             String[] receivedNumberArr= line.split(NUMBER_SPLIT_DELIMITER);
 
             if(receivedNumberArr.length != LENGTH){
-                System.out.println("6개의 숫자를 입력하세요");
+                System.out.println(LENGTH + "개의 숫자를 입력하세요");
                 continue;
             }
 
@@ -81,6 +76,21 @@ public class LottoInput {
             }
 
             return new Lotto(chosenLotto);
+        }
+    }
+
+    private static int receiveNumber(Predicate<Integer> validator, String invalidMessage){
+        while (true) {
+            try {
+                int input = Integer.parseInt(sc.nextLine());
+                if (!validator.test(input)) {
+                    System.out.println(invalidMessage);
+                    continue;
+                }
+                return input;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자만 입력 가능합니다. 다시 시도해주세요.");
+            }
         }
     }
 }
