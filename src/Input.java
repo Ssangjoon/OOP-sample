@@ -12,7 +12,14 @@ public class Input {
 
     public static int chooseMode(int numberOfGames){
         System.out.println("수동으로 진행할 게임 숫자를 입력해주세요. 총 게임 수 : " + numberOfGames);
-        return Integer.parseInt(sc.nextLine());
+        while (true){
+            int numberOfManual= Integer.parseInt(sc.nextLine());
+            if(numberOfManual > numberOfGames){
+                System.out.println("선택하신 수동게임 개수가 총 게임수보다 많습니다.\n 다시 입력해주세요");
+                continue;
+            }
+            return numberOfManual;
+        }
     }
 
     public static List<Lotto> chooseLotto(int numberOfManual){
