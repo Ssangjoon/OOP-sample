@@ -1,5 +1,6 @@
 import lotto.Lotto;
 import lotto.LottoResult;
+import lotto.LottoResultService;
 import lotto.WinningRule;
 
 import java.util.ArrayList;
@@ -32,10 +33,10 @@ public class Main {
 
         Lotto winningLotto= LottoInput.receiveWinningNumber();
 
-        List<LottoResult> lottoResults= LottoResult.calculateRank(chosenLottos, winningLotto);
-        Map<WinningRule, Integer> resultFormat = LottoResult.getResultFormat(lottoResults);
+        List<LottoResult> lottoResults= LottoResultService.calculateRank(chosenLottos, winningLotto);
+        Map<WinningRule, Integer> resultFormat = LottoResultService.getResultFormat(lottoResults);
+        double yieldRate= LottoResultService.getTotalYieldRate(resultFormat, amount);
 
-        double yieldRate= LottoResult.getTotalYieldRate(resultFormat, amount);
         LottoOutput.printLottoResult(resultFormat, yieldRate);
     }
 }
