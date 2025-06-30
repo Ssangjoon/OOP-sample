@@ -16,30 +16,31 @@ public class Input {
     }
 
     public static List<Lotto> chooseLotto(int numberOfManual){
-        System.out.println("로또번호를 입력하세요.");
         List<Lotto> lottoList = new ArrayList<>();
 
-        while (true){
-            Set<LottoNum> chosenLotto = new HashSet<>();
-            for(int i = 0; i < numberOfManual; i++){
-                String chosenLottoStr = sc.nextLine();
-                String[] chosenLottoArr= chosenLottoStr.split(NUMBER_SPLIT_DELIMITER);
+        while (lottoList.size() < numberOfManual){
+            System.out.println("로또 번호 6개를 ,로 구분하여 입력해주세요.");
+            String line = sc.nextLine();
+            String[] chosenLottoArr = line.split(NUMBER_SPLIT_DELIMITER);
 
-                Arrays.stream(chosenLottoArr).forEach(lottoNumber -> {
-                    int number = Integer.parseInt(lottoNumber);
-                    LottoNum lottoNum= new LottoNum(number);
-                    chosenLotto.add(lottoNum);
-                });
+            if(chosenLottoArr.length != 6) {
+                System.out.println("6개의 숫자를 입력하세요");
+                continue;
             }
-            if (chosenLotto.size() == 6){
-                lottoList.add(new Lotto(chosenLotto));
-                if(lottoList.size() == numberOfManual){
-                    return lottoList;
-                }
-            } else  {
+
+            Set<LottoNum> chosenLotto = new HashSet<>();
+            for(String chosenLottoStr : chosenLottoArr) {
+                int num = Integer.parseInt(chosenLottoStr);
+                chosenLotto.add(new LottoNum(num));
+            }
+
+            if (chosenLotto.size() != 6){
                 System.out.println("로또 번호는 중복되지 않아야 합니다.");
+                continue;
             }
+            lottoList.add(new Lotto(chosenLotto));
         }
+        return lottoList;
     }
 
 }
