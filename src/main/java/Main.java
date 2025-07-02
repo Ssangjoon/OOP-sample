@@ -12,8 +12,6 @@ public class Main {
         run();
     }
     private static void run() {
-        // 도메인 세분화로 메인 로직 줄이기
-        // 테스트 코드 작성
         int amount = LottoInput.receiveAmount();
         int numberOfGames = amount/PRICE;
         int numberOfManual = LottoInput.chooseMode(numberOfGames);
