@@ -24,7 +24,7 @@ public class LottoInput {
 
     public static Lottos chooseLotto(int numberOfManual){
         List<List<Integer>> chosenNumbers = new ArrayList<>();
-
+        System.out.println(", 로 구분된 여섯개 번호를 입력하세요.");
         for (int i = 0; i < numberOfManual; i++) {
             List<Integer> numbers = receiveNumber();
             chosenNumbers.add(numbers);
