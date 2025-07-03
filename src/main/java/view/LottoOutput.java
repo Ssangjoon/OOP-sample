@@ -1,14 +1,13 @@
-import lotto.Lotto;
-import lotto.LottoNum;
-import lotto.LottoResult;
-import lotto.WinningRule;
+package view;
+
+import lotto.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoOutput {
-    public static void printChosenLotto(List<Lotto> lottoList){
-        for (Lotto lotto : lottoList) {
+    public static void printChosenLotto(Lottos lottos){
+        for (Lotto lotto : lottos.getLottos()) {
             List<Integer> numbers = lotto.getLottoNumbers().stream()
                     .map(LottoNum::getNum)
                     .sorted()

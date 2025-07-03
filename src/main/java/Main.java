@@ -1,11 +1,7 @@
-import lotto.Lotto;
-import lotto.LottoResult;
-import lotto.LottoService;
-import lotto.WinningRule;
+import lotto.*;
+import view.LottoInput;
+import view.LottoOutput;
 
-import java.util.ArrayList;
-import java.util.List;
-import static lotto.Lotto.PRICE;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,27 +9,17 @@ public class Main {
     }
     private static void run() {
         int amount = LottoInput.receiveAmount();
-        int numberOfGames = amount/PRICE;
-        int numberOfManual = LottoInput.chooseMode(numberOfGames);
+        LottoCount lottoCount = LottoCount.countLotto(amount);
 
-        List<Lotto> chosenLottos =  new ArrayList<>();
-        if (numberOfManual > 0){
-            chosenLottos = LottoInput.chooseLotto(numberOfManual);
-        }
+        Lottos manual = LottoInput.chooseLotto(lottoCount.getNumberOfManual());
+        Lottos auto = new Lottos(lottoCount.getNumberOfAuto());
+        Lottos lottos = new Lottos(manual, auto);
 
-        int numberOfAuto = numberOfGames - numberOfManual;
+        LottoOutput.printChosenLotto(lottos);
 
-        for(int i = 0; i < numberOfAuto; i++){
-            Lotto lotto = new Lotto();
-            chosenLottos.add(lotto);
-        }
+        WinningLotto winningLotto= LottoInput.receiveWinningNumber();
 
-        LottoOutput.printChosenLotto(chosenLottos);
-
-        Lotto winningLotto= LottoInput.receiveWinningNumber();
-
-        List<WinningRule> lottoResults= LottoService.calculateRank(chosenLottos, winningLotto);
-        LottoResult result = new LottoResult(lottoResults);
+        LottoResult result = new LottoResult(LottoService.calculateRank(lottos, winningLotto));
         double yieldRate= LottoService.getTotalYieldRate(result, amount);
 
         LottoOutput.printLottoResult(result, yieldRate);

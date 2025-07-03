@@ -3,12 +3,12 @@ package lotto;
 import java.util.*;
 
 public class LottoService {
-    public static List<WinningRule> calculateRank(List<Lotto> chosenLottos, Lotto winningLotto){
+    public static List<WinningRule> calculateRank(Lottos lottos, WinningLotto winningLotto){
         List<WinningRule> results = new ArrayList<>();
 
-        Set<LottoNum> winningLottoNumbers = winningLotto.getLottoNumbers();
+        Set<LottoNum> winningLottoNumbers = winningLotto.getLotto().getLottoNumbers();
 
-        for (Lotto lotto : chosenLottos) {
+        for (Lotto lotto : lottos.getLottos()) {
             Set<LottoNum> chosenLottoNumbers = lotto.getLottoNumbers();
             int matchCount = (int) chosenLottoNumbers.stream()
                     .filter(winningLottoNumbers::contains)

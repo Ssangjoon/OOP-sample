@@ -1,17 +1,14 @@
 package lotto;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Lotto {
     private final Set<LottoNum> lottoNumbers;
-    private int bonusNumber;
     public static final int LENGTH = 6;
     public static final int PRICE = 1_000;
 
-    public Lotto(Set<LottoNum> lottoNumbers){
-        this.lottoNumbers = lottoNumbers;
-    }
     public Lotto(){
         lottoNumbers = new HashSet<>();
         while (lottoNumbers.size() < LENGTH){
@@ -20,15 +17,18 @@ public class Lotto {
         }
     }
 
+    public Lotto(List<Integer> numbers) {
+        Set<LottoNum>  lottoNumbers = new HashSet<>();
+        for(int number : numbers){
+            LottoNum lottoNum = new LottoNum(number);
+            lottoNumbers.add(lottoNum);
+        }
+        this.lottoNumbers = lottoNumbers;
+    }
+
+
     public Set<LottoNum> getLottoNumbers() {
         return lottoNumbers;
     }
 
-    public void setBonusNumber(int bonusNumber) {
-        this.bonusNumber = bonusNumber;
-    }
-
-    public int getBonusNumber() {
-        return bonusNumber;
-    }
 }
