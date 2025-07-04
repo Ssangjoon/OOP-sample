@@ -24,11 +24,4 @@ public class LottoService {
         return results;
     }
 
-
-    public static double getTotalYieldRate(LottoResult result, int amount) {
-        double totalPrice = result.getCountByLottoRank().entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
-        return totalPrice / amount;
-    }
 }

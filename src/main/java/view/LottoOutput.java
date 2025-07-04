@@ -15,7 +15,7 @@ public class LottoOutput {
             System.out.println(numbers);
         }
     }
-    public static void printLottoResult(LottoResult result, double yieldRate){
+    public static void printLottoResult(LottoResult result, Rate yieldRate){
         for(WinningRule rule :WinningRule.values()){
             String bonusText = rule.isMatchBonus() ? ", 보너스 볼 일치" : "";
             System.out.printf(
@@ -26,6 +26,6 @@ public class LottoOutput {
                 result.getCountByLottoRank().get(rule)
             );
         }
-        System.out.printf("수익률: %d%%\n", (int)(yieldRate * 100));
+        System.out.printf("수익률: %d%%\n", (int)(yieldRate.getRate() * 100));
     }
 }
