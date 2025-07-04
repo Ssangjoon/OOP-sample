@@ -1,8 +1,6 @@
 package lotto;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoResult {
     private final Map<WinningRule, Integer> countByLottoRank;
@@ -10,7 +8,6 @@ public class LottoResult {
     public LottoResult(List<WinningRule> results) {
         Map<WinningRule, Integer> resultCount= new EnumMap<>(WinningRule.class);
 
-        // 1. 초기화 - 0 세팅
         for (WinningRule rule : WinningRule.values()) {
             resultCount.put(rule, 0);
         }
@@ -20,6 +17,27 @@ public class LottoResult {
         }
 
         this.countByLottoRank = resultCount;
+    }
+
+    public static List<WinningRule> calculateRank(Lottos lottos, WinningLotto winningLotto){
+        List<WinningRule> results = new ArrayList<>();
+
+        Set<LottoNum> winningLottoNumbers = winningLotto.getLotto().getLottoNumbers();
+
+        for (Lotto lotto : lottos.getLottos()) {
+            Set<LottoNum> chosenLottoNumbers = lotto.getLottoNumbers();
+            int matchCount = (int) chosenLottoNumbers.stream()
+                    .filter(winningLottoNumbers::contains)
+                    .count();
+
+            boolean matchBonus = chosenLottoNumbers.stream()
+                    .anyMatch(num -> num.getNum() == winningLotto.getBonusNumber());
+
+            WinningRule winningRule= WinningRule.of(matchCount, matchBonus);
+
+            results.add(winningRule);
+        }
+        return results;
     }
 
 

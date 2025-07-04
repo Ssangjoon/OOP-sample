@@ -19,7 +19,7 @@ public class Main {
 
         WinningLotto winningLotto= LottoInput.receiveWinningNumber();
 
-        LottoResult result = new LottoResult(LottoService.calculateRank(lottos, winningLotto));
+        LottoResult result = new LottoResult(LottoResult.calculateRank(lottos, winningLotto));
         Rate yieldRate = new Rate(result, amount);
 
         LottoOutput.printLottoResult(result, yieldRate);
