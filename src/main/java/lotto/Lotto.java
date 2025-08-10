@@ -7,7 +7,7 @@ public class Lotto {
     public static final int LENGTH = 6;
     public static final int PRICE = 1_000;
 
-    public Lotto(){
+    private Lotto(){
         lottoNumbers = new HashSet<>();
         while (lottoNumbers.size() < LENGTH){
             LottoNum lottoNum = LottoNum.create();
@@ -15,7 +15,7 @@ public class Lotto {
         }
     }
 
-    public Lotto(List<Integer> numbers) {
+    private Lotto(List<Integer> numbers) {
         Set<LottoNum>  lottoNumbers = new HashSet<>();
 
         validateLength(numbers);
@@ -40,6 +40,10 @@ public class Lotto {
 
     public static Lotto of(List<Integer> numbers){
         return new Lotto(numbers);
+    }
+
+    public static Lotto create(){
+        return new Lotto();
     }
 
     public Set<LottoNum> getLottoNumbers() {

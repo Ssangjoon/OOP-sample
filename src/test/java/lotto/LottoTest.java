@@ -15,16 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoTest {
-    private Lotto lotto;
-
-    @BeforeEach
-    public void setup() {
-        lotto = Lotto.of(Arrays.asList(1, 2, 3, 4, 5, 6));
-    }
 
     @Test
     @DisplayName("Lotto는 LottoNum 6개로 구성된다.")
     public void createLottoNumbersTest() {
+        Lotto lotto = Lotto.create();
         assertThat(lotto.getLottoNumbers().size()).isEqualTo(6);
     }
 
