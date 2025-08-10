@@ -1,8 +1,12 @@
 package lotto;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Lotto {
     private final Set<LottoNum> lottoNumbers;
@@ -12,7 +16,7 @@ public class Lotto {
     public Lotto(){
         lottoNumbers = new HashSet<>();
         while (lottoNumbers.size() < LENGTH){
-            LottoNum lottoNum = new LottoNum();
+            LottoNum lottoNum = LottoNum.create();
             lottoNumbers.add(lottoNum);
         }
     }
@@ -20,7 +24,7 @@ public class Lotto {
     public Lotto(List<Integer> numbers) {
         Set<LottoNum>  lottoNumbers = new HashSet<>();
         for(int number : numbers){
-            LottoNum lottoNum = new LottoNum(number);
+            LottoNum lottoNum = LottoNum.of(number);
             lottoNumbers.add(lottoNum);
         }
         this.lottoNumbers = lottoNumbers;
