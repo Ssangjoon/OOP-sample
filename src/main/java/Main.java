@@ -2,6 +2,8 @@ import lotto.*;
 import view.LottoInput;
 import view.LottoOutput;
 
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -11,9 +13,11 @@ public class Main {
         int amount = LottoInput.receiveAmount();
         LottoCount lottoCount = LottoCount.countLotto(amount);
 
-        Lottos manual = LottoInput.chooseLotto(lottoCount.getNumberOfManual());
-        Lottos auto = new Lottos(lottoCount.getNumberOfAuto());
-        Lottos lottos = new Lottos(manual, auto);
+        List<List<Integer>> chosenNumbers = LottoInput.chooseLotto(lottoCount.getNumberOfManual());
+
+        Lottos manual = Lottos.from(new ManualLottoGenerator(chosenNumbers));
+        Lottos auto = Lottos.from(new RandomLottoGenerator(lottoCount.getNumberOfAuto()));
+        Lottos lottos = Lottos.combine(manual, auto);
 
         LottoOutput.printChosenLotto(lottos);
 

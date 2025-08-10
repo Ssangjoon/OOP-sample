@@ -19,7 +19,7 @@ class LottoTest {
     @Test
     @DisplayName("Lotto는 LottoNum 6개로 구성된다.")
     public void createLottoNumbersTest() {
-        Lotto lotto = Lotto.create();
+        Lotto lotto = Lotto.random();
         assertThat(lotto.getLottoNumbers().size()).isEqualTo(6);
     }
 
@@ -32,7 +32,7 @@ class LottoTest {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
-        assertThatThrownBy(() -> Lotto.of(numbers))
+        assertThatThrownBy(() -> Lotto.manual(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

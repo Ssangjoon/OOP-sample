@@ -6,29 +6,23 @@ import java.util.List;
 public class Lottos {
     private final List<Lotto> lottos;
 
-    public Lottos(List<List<Integer>> numbersList) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (List<Integer> numbers:numbersList){
-            Lotto lotto= new Lotto(numbers);
-            lottos.add(lotto);
-        }
-        this.lottos = lottos;
+    private Lottos(LottoGenerationStrategy strategy){
+        lottos = strategy.generate();
     }
 
-    public Lottos(int numberOfAuto) {
-        List<Lotto> lottos = new ArrayList<>();
-        for(int i = 0; i < numberOfAuto; i++){
-            Lotto lotto = new Lotto();
-            lottos.add(lotto);
-        }
-        this.lottos = lottos;
-    }
-
-    public Lottos(Lottos manual, Lottos auto) {
+    private Lottos(Lottos manual, Lottos auto) {
         List<Lotto> combined = new ArrayList<>();
         combined.addAll(manual.lottos);
         combined.addAll(auto.lottos);
         this.lottos = combined;
+    }
+
+    public static Lottos from(LottoGenerationStrategy strategy){
+        return new Lottos(strategy);
+    }
+
+    public static Lottos combine(Lottos manual, Lottos auto) {
+        return new Lottos(manual, auto);
     }
 
     public List<Lotto> getLottos() {

@@ -19,17 +19,19 @@ public class Lotto {
         Set<LottoNum>  lottoNumbers = new HashSet<>();
 
         validateLength(numbers);
+        validateDuplicateNumber(numbers);
 
         for(int number : numbers){
             LottoNum lottoNum = LottoNum.of(number);
             lottoNumbers.add(lottoNum);
         }
 
-        if(lottoNumbers.size() < LENGTH){
-            throw new IllegalArgumentException("서로 다른 6개의 숫자를 입력하세요.");
-        }
-
         this.lottoNumbers = lottoNumbers;
+    }
+
+    private void validateDuplicateNumber(List<Integer> numbers){
+        Set<Integer> lottoNumbers = new HashSet<>(numbers);
+        validateLength(lottoNumbers);
     }
 
     private void validateLength(Collection<Integer> numbers) {
@@ -38,11 +40,11 @@ public class Lotto {
         }
     }
 
-    public static Lotto of(List<Integer> numbers){
+    public static Lotto manual(List<Integer> numbers){
         return new Lotto(numbers);
     }
 
-    public static Lotto create(){
+    public static Lotto random(){
         return new Lotto();
     }
 

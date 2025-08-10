@@ -8,7 +8,7 @@ public class WinningLotto {
 
     public WinningLotto(List<Integer> numbers, int bonusNumber) {
         this.bonusNumber = bonusNumber;
-        this.lotto = Lotto.of(numbers);
+        this.lotto = Lotto.manual(numbers);
     }
 
     public Lotto getLotto() {

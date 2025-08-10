@@ -22,7 +22,7 @@ public class LottoInput {
         return receiveNumber(manual -> manual >= 0 && manual <= numberOfGames, "수동 게임 수는 0 이상이며 총 게임 수를 초과할 수 없습니다.");
     }
 
-    public static Lottos chooseLotto(int numberOfManual){
+    public static List<List<Integer>> chooseLotto(int numberOfManual){
         List<List<Integer>> chosenNumbers = new ArrayList<>();
         System.out.println(", 로 구분된 여섯개 번호를 입력하세요.");
         for (int i = 0; i < numberOfManual; i++) {
@@ -30,7 +30,7 @@ public class LottoInput {
             chosenNumbers.add(numbers);
         }
 
-        return new Lottos(chosenNumbers);
+        return chosenNumbers;
     }
 
     public static WinningLotto receiveWinningNumber(){
@@ -46,10 +46,6 @@ public class LottoInput {
     private static List<Integer> receiveNumber(){
         String line = sc.nextLine();
         String[] receivedNumberArr= line.split(NUMBER_SPLIT_DELIMITER);
-
-//        if(receivedNumberArr.length != LENGTH){
-//            System.out.println(LENGTH + "개의 숫자를 입력하세요");
-//        }
 
         return Arrays.stream(receivedNumberArr)
                     .map(String::trim)

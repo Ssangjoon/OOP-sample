@@ -9,11 +9,11 @@ public class LottoNum {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
-    private int num;
+    private final int num;
 
     private LottoNum(){
         Random random = new Random();
-        this.num = random.nextInt(MAX_NUMBER);
+        this.num = random.nextInt(MAX_NUMBER) + 1;
     }
     private LottoNum(int num){
         if (num < MIN_NUMBER || num > MAX_NUMBER) {
