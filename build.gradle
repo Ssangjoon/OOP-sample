@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id("org.jetbrains.kotlin.jvm") version "1.9.25" // Kotlin 플러그인
 }
 
 version '1.0-SNAPSHOT'
@@ -9,6 +10,13 @@ repositories {
 }
 
 dependencies {
+    // Kotlin 표준 라이브러리
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.25")
+
+    // Kotlin 테스트 라이브러리
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.25")          // kotlin.test API
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
     testImplementation 'org.assertj:assertj-core:3.22.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 }
@@ -20,5 +28,8 @@ java {
 }
 
 test {
+    useJUnitPlatform()
+}
+tasks.test {
     useJUnitPlatform()
 }
