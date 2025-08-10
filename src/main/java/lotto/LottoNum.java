@@ -1,20 +1,13 @@
 package lotto;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 
 public class LottoNum {
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
 
     private final int num;
 
-    private LottoNum(){
-        Random random = new Random();
-        this.num = random.nextInt(MAX_NUMBER) + 1;
-    }
     private LottoNum(int num){
         if (num < MIN_NUMBER || num > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
@@ -24,10 +17,6 @@ public class LottoNum {
 
     public int getNum() {
         return num;
-    }
-
-    public static LottoNum create(){
-        return new LottoNum();
     }
 
     public static LottoNum of(int num){

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,8 +13,9 @@ class LottosTest {
     @Test
     @DisplayName("자동 로또 생성 테스트")
     public void randomGeneratorTest() {
-        Lottos lottos = Lottos.from(new RandomLottoGenerator(5));
-        assertThat(lottos.getLottos()).hasSize(5);
+        var g1 = new RandomLottoGenerator(1, new Random(42L));
+        var g2 = new RandomLottoGenerator(1, new Random(42L));
+        assertThat(g1.generate()).isEqualTo(g2.generate());
     }
 
     @Test

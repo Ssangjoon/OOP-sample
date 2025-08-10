@@ -7,20 +7,11 @@ public class Lotto {
     public static final int LENGTH = 6;
     public static final int PRICE = 1_000;
 
-    private Lotto(){
-        lottoNumbers = new HashSet<>();
-        while (lottoNumbers.size() < LENGTH){
-            LottoNum lottoNum = LottoNum.create();
-            lottoNumbers.add(lottoNum);
-        }
-    }
-
     private Lotto(List<Integer> numbers) {
-        Set<LottoNum>  lottoNumbers = new HashSet<>();
-
         validateLength(numbers);
         validateDuplicateNumber(numbers);
 
+        Set<LottoNum>  lottoNumbers = new HashSet<>();
         for(int number : numbers){
             LottoNum lottoNum = LottoNum.of(number);
             lottoNumbers.add(lottoNum);
@@ -44,12 +35,19 @@ public class Lotto {
         return new Lotto(numbers);
     }
 
-    public static Lotto random(){
-        return new Lotto();
-    }
-
     public Set<LottoNum> getLottoNumbers() {
         return lottoNumbers;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(lottoNumbers, lotto.lottoNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(lottoNumbers);
+    }
 }
